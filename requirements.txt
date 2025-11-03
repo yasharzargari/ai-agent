@@ -1,46 +1,22 @@
-# ============================================================================
-# CORE DEPENDENCIES
-# ============================================================================
-python-dotenv>=1.0.0
-pydantic>=2.0.0
-typing-extensions>=4.8.0
-
-# ============================================================================
-# LLM PROVIDERS
-# ============================================================================
-openai>=1.0.0
-anthropic>=0.18.0
-
-# ============================================================================
-# MEMORY & STORAGE
-# ============================================================================
-# chromadb>=0.4.0          # Vector database (uncomment if needed)
-# faiss-cpu>=1.7.4         # Alternative vector store (uncomment if needed)
-
-# ============================================================================
-# UTILITIES
-# ============================================================================
-requests>=2.31.0
-beautifulsoup4>=4.12.0     # For web scraping
-aiohttp>=3.9.0             # Async HTTP
+# LLM Providers
 litellm>=1.0.0
-lxml~=5.3
-html5lib~=1.1
+openai>=1.0.0
+anthropic>=0.25.0
 
-# ============================================================================
-# DEVELOPMENT & TESTING
-# ============================================================================
+# Core Dependencies
+python-dotenv>=1.0.0
+pyyaml>=6.0
+pydantic>=2.0.0
+
+# Async & Concurrency
+asyncio>=3.4.3
+
+# Testing
 pytest>=7.4.0
 pytest-asyncio>=0.21.0
 pytest-cov>=4.1.0
-black>=23.0.0              # Code formatting
-flake8>=6.1.0              # Linting
-mypy>=1.5.0                # Type checking
 
-# ============================================================================
-# OPTIONAL: Advanced Features
-# ============================================================================
-# langchain>=0.1.0         # For LangChain integration
-# numpy>=1.24.0            # For numerical operations
-# pandas>=2.0.0            # For data manipulation
-# tiktoken>=0.5.0          # For token counting
+# Utilities
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+aiohttp>=3.9.0
