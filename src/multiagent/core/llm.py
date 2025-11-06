@@ -16,6 +16,8 @@ def generate_response(prompt: Prompt, model: str = "openai/gpt-4o") -> str:
         )
         return response.choices[0].message.content
     else:
+        # The inclusion of the tools parameter, tells the model what functions it can call. 
+        # This is what activates the function calling mechanism.
         response = completion(
             model=model,
             messages=messages,

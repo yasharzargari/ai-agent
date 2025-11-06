@@ -8,7 +8,6 @@ RETRIEVAL_WORKER_GOALS = [
         Execute all assigned retrieval tasks in parallel:
         - Read from files if file sources specified
         - Fetch from web if URLs provided
-        - Query databases if database access needed
         - Handle errors gracefully with fallbacks
         """
     ),
