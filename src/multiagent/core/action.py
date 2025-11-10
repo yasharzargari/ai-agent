@@ -1,4 +1,5 @@
 from typing import Callable, Dict, Any, List
+import uuid
 
 
 class Action:
@@ -42,3 +43,14 @@ class ActionRegistry:
     def get_action_names(self) -> List[str]:
         """Get names of all registered actions"""
         return list(self.actions.keys())
+
+class ActionContext:
+    def __init__(self, properties: Dict=None):
+        self.context_id = str(uuid.uuid4())
+        self.properties = properties or {}
+
+    def get(self, key: str, default=None):
+        return self.properties.get(key, default)
+
+    def get_memory(self):
+        return self.properties.get("memory", None)

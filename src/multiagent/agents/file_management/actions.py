@@ -1,5 +1,6 @@
 """File Management Agent actions"""
 
+import json
 from typing import List
 from pathlib import Path
 
@@ -54,7 +55,7 @@ def list_txt_files() -> List[str]:
                    if file.is_file() and file.name.endswith(".txt")])
 
 
-@register_tool(tags=["file_operations", "query"])
+@register_tool(tags=["file_operations", "answer"])
 def answer_question_about_files(question: str, file_contents: str = None) -> str:
     """Answers questions about the content of .txt files in the data folder.
 
@@ -69,16 +70,28 @@ def answer_question_about_files(question: str, file_contents: str = None) -> str
         An answer to the question based on the file contents
     """
     if file_contents:
-        # If content is provided, use it to answer
-        # This is a simple implementation - in a real system, you might use an LLM here
-        return f"Answering question: {question}\n\nBased on the file contents provided, I can help answer your question. Please provide more specific file content or use read_txt_file to read specific files first."
-    else:
-        # Suggest reading files first
-        available_files = list_txt_files()
-        if available_files:
-            return f"To answer your question '{question}', I need to read the relevant files first. Available files: {', '.join(available_files)}. Use read_txt_file to read specific files."
-        else:
-            return f"No .txt files found in the data folder to answer your question: {question}"
+        result = {
+            "question": question,
+            "status": "content_received",
+            "answer": (
+                "Based on the provided file contents, here's a placeholder answer. "
+                "Replace this logic with actual reasoning over the text."
+            ),
+        }
+        return json.dumps(result)
+
+    available_files = list_txt_files()
+    result = {
+        "question": question,
+        "status": "needs_content",
+        "message": (
+            "To answer the question, provide file_contents from the relevant files."
+            if available_files
+            else "No .txt files were found in the data directory."
+        ),
+        "available_files": available_files,
+    }
+    return json.dumps(result)
 
 
 @register_tool(tags=["system"], terminal=True)

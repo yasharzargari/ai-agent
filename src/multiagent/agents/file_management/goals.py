@@ -9,16 +9,19 @@ FILE_MANAGEMENT_GOALS = [
     Goal(
         priority=2,
         name="Read Text Files",
-        description="Read .txt files from the ./data folder to gather information and answer questions about their content"
+        description="Use read_txt_file to collect the contents of any files needed to answer the user question."
     ),
     Goal(
         priority=3,
-        name="Answer Questions",
-        description="Answer questions about the content of the .txt files in the data folder using the read file contents"
+        name="Answer in JSON",
+        description=(
+            "Call answer_question_about_files with the original question and the gathered file text so the final "
+            "response is returned in JSON format."
+        )
     ),
     Goal(
         priority=4,
         name="Terminate",
-        description="Call terminate when done and provide a complete answer or summary in the message parameter"
+        description="Once the JSON answer is ready, call terminate and include that JSON in the message."
     )
 ]

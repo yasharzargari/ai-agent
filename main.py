@@ -5,6 +5,7 @@ Demonstrates the file management agent reading and analyzing project files.
 
 import os
 from src.multiagent.agents.file_management.agent import create_file_management_agent
+from src.multiagent.agents.retrieval_worker.agent import create_retrieval_worker_agent
 
 
 def main():
@@ -16,10 +17,17 @@ def main():
     
     # Create the agent
     agent = create_file_management_agent()
+    # agent = create_retrieval_worker_agent()
     
     # Define the task
     user_input = "Read all .txt files from the data folder and tell me when and were was she born."
-    
+    # user_input = "Fetch the information from the wikipedia page provided to you and only answer using that infor tell me who are the actors in frients series."
+    # user_input = (
+    #     "Fetch information from https://en.wikipedia.org/wiki/Zonuz and extract the following: "
+    #     "city name, 2016 census population, and number of households. "
+        
+    # )
+
     print(f"Task: {user_input}")
     print()
     print("Agent is now working...")

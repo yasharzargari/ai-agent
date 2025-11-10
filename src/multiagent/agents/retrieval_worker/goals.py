@@ -3,30 +3,20 @@ from ...core.language import Goal
 RETRIEVAL_WORKER_GOALS = [
     Goal(
         priority=1,
-        name="Execute Retrieval Tasks",
-        description="""
-        Execute all assigned retrieval tasks in parallel:
-        - Read from files if file sources specified
-        - Fetch from web if URLs provided
-        - Handle errors gracefully with fallbacks
-        """
+        name="Fetch Content",
+        description="Use fetch_from_web to retrieve the relevant web page content."
     ),
     Goal(
-        priority=2,
-        name="Normalize Results",
-        description="""
-        Normalize all retrieved data into a consistent format:
-        - Extract key information from each source
-        - Tag data with source metadata
-        - Ensure consistent structure across different source types
-        """
+        priority=1,
+        name="Answer in JSON",
+        description=(
+            "After fetching content, call answer_question_from_web with the original question and the fetched "
+            "text so the response is emitted in JSON format."
+        ),
     ),
     Goal(
-        priority=3,
-        name="Return Results",
-        description="""
-        Return normalized results using the return_retrieval_results tool.
-        Include all fetched data with proper attribution.
-        """
-    )
+        priority=1,
+        name="Terminate",
+        description="Call terminate once the JSON answer is ready and include that JSON in the message."
+    ),
 ]

@@ -1,8 +1,5 @@
-from ...core.agent import Agent
-from ...core.language import AgentFunctionCallingActionLanguage
-from ...core.environment import Environment
-from ...core.llm import generate_response
-from ...tools.registry import PythonActionRegistry, register_tool
+from ...tools.agent_tools import build_agent
+from ...tools.registry import register_tool
 from .goals import SYNTHESIZER_GOALS
 
 
@@ -41,14 +38,9 @@ def return_synthesis_result(summary: str) -> str:
 
 
 def create_synthesizer_agent():
-    """Factory function to create a Synthesizer agent"""
-    action_registry = PythonActionRegistry(tags=["synthesis"])
-    
-    return Agent(
+    """Factory function to create a Synthesizer agent."""
+    return build_agent(
         name="Synthesizer",
         goals=SYNTHESIZER_GOALS,
-        agent_language=AgentFunctionCallingActionLanguage(),
-        action_registry=action_registry,
-        generate_response=generate_response,
-        environment=Environment()
+        tags=["synthesis"],
     )

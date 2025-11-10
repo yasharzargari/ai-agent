@@ -1,0 +1,74 @@
+## Visual Map
+
+
+
+```mermaid
+mindmap
+  root((project))
+    data
+      "Jenifer-Aniston.txt"
+      "watermelone.txt"
+    docs
+      architecture.md
+      architecture_analysis.md
+      folder_structure_analysis.md
+    examples
+      sample_project
+        module_a.py
+        module_b.py
+    src
+      multiagent
+        agents
+          file_management
+            actions.py
+            agent.py
+            goals.py
+          orchestrator
+            agent.py
+            goals.py
+          synthesizer
+            agent.py
+            goals.py
+        config
+          agents.yaml
+          config.py
+          settings.py
+        core
+          action.py
+          agent.py
+          environment.py
+          language.py
+          llm.py
+          memory.py
+        memory
+          base.py
+          broker.py
+          policy.py
+          stores
+            inmem.py
+        orchestrators
+          base.py
+          protocols.py
+          coordinators
+            chatbot_pipeline.py
+        runtime
+          run_chatbot_pipeline.py
+        tools
+          file_ops.py
+          registry.py
+    tests
+      conftest.py
+      test_file_management_agent.py
+      test_function_calling_language.py
+      test_memory_broker.py
+      test_tool_registry.py
+    root_files
+      .env
+      .gitignore
+      Makefile
+      README.md
+      requirements.txt
+      main.py
+      test.py
+
+
