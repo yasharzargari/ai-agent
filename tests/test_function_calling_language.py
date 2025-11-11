@@ -1,9 +1,9 @@
 """Tests for function calling language"""
 
 import pytest
-from multiagent.core.language import AgentFunctionCallingActionLanguage, Goal
-from multiagent.core.memory import Memory
-from multiagent.core.action import Action
+from core.language import AgentFunctionCallingActionLanguage, Goal
+from core.memory import Memory
+from core.action import Action
 
 
 def test_format_goals():

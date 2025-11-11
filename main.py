@@ -3,10 +3,10 @@ Main entry point for the multiagent system.
 Demonstrates the file management agent reading and analyzing project files.
 """
 
-from src.multiagent.agents.file_management.agent import create_file_management_agent
-from src.multiagent.agents.retrieval_worker.agent import create_retrieval_worker_agent
-from src.multiagent.agents.orchestrator.agent import create_orchestrator_agent
-from src.multiagent.core.agent_registry import AgentRegistry
+from src.agents.file_management.agent import create_file_management_agent
+from src.agents.retrieval_worker.agent import create_retrieval_worker_agent
+from src.agents.orchestrator.agent import create_orchestrator_agent
+from src.core.agent_registry import AgentRegistry
 
 def main(): 
     """Run the file management agent demo"""

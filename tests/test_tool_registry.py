@@ -1,6 +1,6 @@
 """Tests for tool registry"""
 
-from multiagent.tools.registry import register_tool, tools, PythonActionRegistry
+from tools.registry import register_tool, tools, PythonActionRegistry
 
 
 def test_register_tool():

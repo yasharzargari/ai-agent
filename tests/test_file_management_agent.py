@@ -1,8 +1,8 @@
 """Tests for File Management agent"""
 
 import pytest
-from multiagent.agents.file_management.agent import create_file_management_agent
-from multiagent.core.memory import Memory
+from agents.file_management.agent import create_file_management_agent
+from core.memory import Memory
 
 
 def test_create_file_management_agent():

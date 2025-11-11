@@ -1,7 +1,7 @@
 """Tests for memory broker"""
 
 import pytest
-from multiagent.memory.broker import MemoryBroker
+from memory.broker import MemoryBroker
 
 
 def test_share_memory(memory_broker):
