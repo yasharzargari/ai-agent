@@ -3,12 +3,12 @@ Main entry point for the multiagent system.
 Demonstrates the file management agent reading and analyzing project files.
 """
 
-import os
 from src.multiagent.agents.file_management.agent import create_file_management_agent
 from src.multiagent.agents.retrieval_worker.agent import create_retrieval_worker_agent
+from src.multiagent.agents.orchestrator.agent import create_orchestrator_agent
+from src.multiagent.core.agent_registry import AgentRegistry
 
-
-def main():
+def main(): 
     """Run the file management agent demo"""
     print("=" * 80)
     print("MULTIAGENT SYSTEM - FILE MANAGEMENT AGENT DEMO")
@@ -16,17 +16,25 @@ def main():
     print()
     
     # Create the agent
-    agent = create_file_management_agent()
-    # agent = create_retrieval_worker_agent()
-    
+    file_management_agent = create_file_management_agent()
+    retrieval_worker_agent = create_retrieval_worker_agent()
+    orchestrator_agent = create_orchestrator_agent()
+
+    agent_registry = AgentRegistry()
+    agent_registry.register_agent(file_management_agent.name, file_management_agent.run)
+    agent_registry.register_agent(retrieval_worker_agent.name, retrieval_worker_agent.run)
+    # agent_registry.register_agent(orchestrator_agent.name, orchestrator_agent.run)
+
     # Define the task
-    user_input = "Read all .txt files from the data folder and tell me when and were was she born."
+    # user_input = "Read all .txt files from the data folder and tell me who lives there."
     # user_input = "Fetch the information from the wikipedia page provided to you and only answer using that infor tell me who are the actors in frients series."
     # user_input = (
     #     "Fetch information from https://en.wikipedia.org/wiki/Zonuz and extract the following: "
     #     "city name, 2016 census population, and number of households. "
         
     # )
+
+    user_input = "What is the population of Richmond? and what is the name of the person who lives in Richmond?"
 
     print(f"Task: {user_input}")
     print()
@@ -35,7 +43,13 @@ def main():
     print()
     
     # Run the agent
-    final_memory = agent.run(user_input, max_iterations=50)
+    final_memory = orchestrator_agent.run(
+        user_input,
+        max_iterations=13,
+        action_context_props={
+            "agent_registry": agent_registry
+        }
+    )
     
     # Display results
     print()

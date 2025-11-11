@@ -4,6 +4,8 @@ import json
 from typing import List
 from pathlib import Path
 
+from ...core.action import ActionContext
+
 from ...tools.registry import register_tool
 
 
@@ -13,7 +15,7 @@ DATA_DIR = PROJECT_ROOT / "data"
 
 
 @register_tool(tags=["file_operations", "read"])
-def read_txt_file(filename: str) -> str:
+def read_txt_file(action_context: ActionContext, filename: str) -> str:
     """Reads and returns the content of a specified .txt file from the data folder.
 
     Opens the file in read mode and returns its entire contents as a string.
@@ -39,7 +41,7 @@ def read_txt_file(filename: str) -> str:
 
 
 @register_tool(tags=["file_operations", "list"])
-def list_txt_files() -> List[str]:
+def list_txt_files(action_context: ActionContext) -> List[str]:
     """Lists all .txt files in the data folder.
 
     Scans the data directory and returns a sorted list of all files
@@ -55,43 +57,43 @@ def list_txt_files() -> List[str]:
                    if file.is_file() and file.name.endswith(".txt")])
 
 
-@register_tool(tags=["file_operations", "answer"])
-def answer_question_about_files(question: str, file_contents: str = None) -> str:
-    """Answers questions about the content of .txt files in the data folder.
+# @register_tool(tags=["file_operations", "answer"])
+# def answer_question_about_files(action_context: ActionContext, question: str, file_contents: str = None) -> str:
+#     """Answers questions about the content of .txt files in the data folder.
 
-    This action helps answer questions about the files. If file_contents is provided,
-    it will use that content to answer. Otherwise, it will need to read the files first.
+#     This action helps answer questions about the files. If file_contents is provided,
+#     it will use that content to answer. Otherwise, it will need to read the files first.
 
-    Args:
-        question: The question to answer about the files
-        file_contents: Optional pre-read content from files to answer the question
+#     Args:
+#         question: The question to answer about the files
+#         file_contents: Optional pre-read content from files to answer the question
 
-    Returns:
-        An answer to the question based on the file contents
-    """
-    if file_contents:
-        result = {
-            "question": question,
-            "status": "content_received",
-            "answer": (
-                "Based on the provided file contents, here's a placeholder answer. "
-                "Replace this logic with actual reasoning over the text."
-            ),
-        }
-        return json.dumps(result)
+#     Returns:
+#         An answer to the question based on the file contents
+#     """
+#     if file_contents:
+#         result = {
+#             "question": question,
+#             "status": "content_received",
+#             "answer": (
+#                 "Based on the provided file contents, here's a placeholder answer. "
+#                 "Replace this logic with actual reasoning over the text."
+#             ),
+#         }
+#         return json.dumps(result)
 
-    available_files = list_txt_files()
-    result = {
-        "question": question,
-        "status": "needs_content",
-        "message": (
-            "To answer the question, provide file_contents from the relevant files."
-            if available_files
-            else "No .txt files were found in the data directory."
-        ),
-        "available_files": available_files,
-    }
-    return json.dumps(result)
+#     available_files = list_txt_files()
+#     result = {
+#         "question": question,
+#         "status": "needs_content",
+#         "message": (
+#             "To answer the question, provide file_contents from the relevant files."
+#             if available_files
+#             else "No .txt files were found in the data directory."
+#         ),
+#         "available_files": available_files,
+#     }
+#     return json.dumps(result)
 
 
 @register_tool(tags=["system"], terminal=True)

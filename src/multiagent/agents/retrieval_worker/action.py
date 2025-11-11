@@ -4,19 +4,20 @@ import json
 from ...tools.registry import register_tool
 import requests
 from bs4 import BeautifulSoup
+from ...core.action import ActionContext
 
 
 ALLOWED_URLS = {
-    "zonuz": "https://en.wikipedia.org/wiki/Zonuz",
+    "richmond": "https://en.wikipedia.org/wiki/Richmond,_Virginia",
 }
 
 
 @register_tool(tags=["web_operations", "fetch"])
-def fetch_from_web(url: Optional[str] = None) -> str:
+def fetch_from_web(action_context: ActionContext,url: Optional[str] = None) -> str:
     """Fetches the first two paragraphs from approved Wikipedia articles.
 
     Opens the URL and extracts the first two non-empty paragraphs. If no URL is
-    supplied, the default Zonuz page is used. Only URLs from the allow-list are fetched.
+    supplied, the default Richmond page is used. Only URLs from the allow-list are fetched.
 
     Returns:
         The first two paragraphs concatenated as a single string.
@@ -30,7 +31,7 @@ def fetch_from_web(url: Optional[str] = None) -> str:
     # ✅ Respect the allow-list and default correctly
     normalized_url = (url or "").strip()
     if not normalized_url:
-        normalized_url = ALLOWED_URLS["zonuz"]
+        normalized_url = ALLOWED_URLS["richmond"]
     elif normalized_url not in ALLOWED_URLS.values():
         raise ValueError(f"URL '{normalized_url}' is not permitted. Use one of the approved URLs.")
 
@@ -50,37 +51,37 @@ def fetch_from_web(url: Optional[str] = None) -> str:
     return "\n\n".join(paragraphs)
 
 
-@register_tool(tags=["web_operations"])
-def answer_question_from_web(question: str, web_content: str = None) -> str:
-    """Answers questions about the content fetched from web pages.
+# @register_tool(tags=["web_operations"])
+# def answer_question_from_web(action_context: ActionContext,question: str, web_content: str = None) -> str:
+#     """Answers questions about the content fetched from web pages.
     
-    This action helps answer questions about web content. If web_content is provided,
-    it will use that content to answer. Otherwise, it will need to fetch the content first.
+#     This action helps answer questions about web content. If web_content is provided,
+#     it will use that content to answer. Otherwise, it will need to fetch the content first.
     
-    Args:
-        question: The question to answer about the web content
-        web_content: Optional pre-fetched content from web pages to answer the question
+#     Args:
+#         question: The question to answer about the web content
+#         web_content: Optional pre-fetched content from web pages to answer the question
     
-    Returns:
-        An answer to the question based on the web content in JSON format
-    """
-    if web_content:
-        # If content is provided, use it to answer
-        # This is a simple implementation - in a real system, you might use an LLM here
-        result = {
-            "question": question,
-            "answer": "Based on the web content provided, I can help answer your question. Please provide more specific web content or use fetch_from_web to fetch from specific URLs first.",
-            "status": "content_received"
-        }
-        return json.dumps(result)
-    else:
-        # Suggest fetching content first
-        result = {
-            "question": question,
-            "message": f"To answer your question '{question}', I need to fetch the relevant web content first. Please provide a URL and use fetch_from_web to retrieve the content from that URL.",
-            "status": "needs_content"
-        }
-        return json.dumps(result)
+#     Returns:
+#         An answer to the question based on the web content in JSON format
+#     """
+#     if web_content:
+#         # If content is provided, use it to answer
+#         # This is a simple implementation - in a real system, you might use an LLM here
+#         result = {
+#             "question": question,
+#             "answer": "Based on the web content provided, I can help answer your question. Please provide more specific web content or use fetch_from_web to fetch from specific URLs first.",
+#             "status": "content_received"
+#         }
+#         return json.dumps(result)
+#     else:
+#         # Suggest fetching content first
+#         result = {
+#             "question": question,
+#             "message": f"To answer your question '{question}', I need to fetch the relevant web content first. Please provide a URL and use fetch_from_web to retrieve the content from that URL.",
+#             "status": "needs_content"
+#         }
+#         return json.dumps(result)
 
 
 

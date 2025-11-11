@@ -7,11 +7,11 @@ from .action import Action
 
 class Environment:
     """Manages action execution and result formatting"""
-    
-    def execute_action(self, action: Action, args: dict) -> dict:
+
+    def execute_action(self, action: Action, args: dict, action_context=None) -> dict:
         """Execute an action and return formatted result"""
         try:
-            result = action.execute(**args)
+            result = action.execute(action_context=action_context, **args)
             return self.format_result(result)
         except Exception as e:
             return {

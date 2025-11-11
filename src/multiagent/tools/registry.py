@@ -116,7 +116,8 @@ class PythonActionRegistry(ActionRegistry):
                 function=tool_desc["function"],
                 description=tool_desc["description"],
                 parameters=tool_desc.get("parameters", {}),
-                terminal=tool_desc.get("terminal", False)
+                terminal=tool_desc.get("terminal", False),
+                accepts_action_context="action_context" in inspect.signature(tool_desc["function"]).parameters
             ))
 
     def register_terminate_tool(self):
@@ -127,7 +128,8 @@ class PythonActionRegistry(ActionRegistry):
                 function=self.terminate_tool["function"],
                 description=self.terminate_tool["description"],
                 parameters=self.terminate_tool.get("parameters", {}),
-                terminal=self.terminate_tool.get("terminal", False)
+                terminal=self.terminate_tool.get("terminal", False),
+                accepts_action_context="action_context" in inspect.signature(self.terminate_tool["function"]).parameters
             ))
         else:
             raise Exception("Terminate tool not found in tool registry")

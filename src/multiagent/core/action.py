@@ -10,15 +10,19 @@ class Action:
                  function: Callable,
                  description: str,
                  parameters: Dict,
-                 terminal: bool = False):
+                 terminal: bool = False,
+                 accepts_action_context: bool = False):
         self.name = name
         self.function = function
         self.description = description
         self.terminal = terminal
         self.parameters = parameters
+        self.accepts_action_context = accepts_action_context
 
-    def execute(self, **args) -> Any:
+    def execute(self, action_context=None, **args) -> Any:
         """Execute the action's function"""
+        if self.accepts_action_context:
+            return self.function(action_context=action_context, **args)
         return self.function(**args)
 
 
@@ -54,3 +58,6 @@ class ActionContext:
 
     def get_memory(self):
         return self.properties.get("memory", None)
+
+    def get_agent_registry(self):
+        return self.properties.get("agent_registry", None)

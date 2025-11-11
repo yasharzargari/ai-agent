@@ -3,35 +3,32 @@ from ...core.language import Goal
 ORCHESTRATOR_GOALS = [
     Goal(
         priority=1,
-        name="Analyze Query",
-        description="""
-        Analyze the user's request to understand:
-        - Intent and desired outcome
-        - Information sources needed (files, web, databases)
-        - Time windows or constraints
-        - Required retrieval strategies
-        """
+        name="Collect Retrieval Data",
+        description=(
+            "Call the `run_retrieval_worker_agent` tool with the user’s web-information task. "
+            "Do not proceed until you have a successful response from the RetrievalWorker agent."
+        ),
     ),
     Goal(
         priority=2,
-        name="Dispatch Tasks",
-        description="""
-        Break down the query into subtasks and dispatch to the Retrieval Worker:
-        - Specify which sources to query
-        - Define parallel retrieval tasks
-        - Set parameters for each retrieval operation
-        Use the dispatch_retrieval_tasks tool to send tasks.
-        """
+        name="Collect File Data",
+        description=(
+            "Call the `run_file_management_agent` tool with the user’s file-analysis task. "
+            "Do not proceed until you have a successful response from the FileManagementAgent."
+        ),
     ),
     Goal(
         priority=3,
-        name="Coordinate Synthesis",
-        description="""
-        After retrieval is complete, coordinate the Synthesizer to:
-        - Consolidate retrieved information
-        - Generate structured summary
-        - Format final response
-        Use the request_synthesis tool when ready.
-        """
-    )
+        name="Aggregate Results",
+        description=(
+            "After both agents respond, call `synthesize_results` to combine their outputs into a single summary."
+        ),
+    ),
+    Goal(
+        priority=4,
+        name="Deliver Final Output",
+        description=(
+            "Finish by invoking `terminate`, citing only information sourced from the delegated agents."
+        ),
+    ),
 ]

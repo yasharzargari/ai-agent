@@ -2,7 +2,7 @@ import json
 from typing import List, Callable
 
 from .language import Goal, Prompt, AgentLanguage
-from .action import ActionRegistry
+from .action import ActionContext, ActionRegistry
 from .memory import Memory
 from .environment import Environment
 
@@ -63,9 +63,14 @@ class Agent:
         return self.generate_response(full_prompt)
 
     def run(self, user_input: str, memory: Memory = None, 
-            max_iterations: int = 50) -> Memory:
+            max_iterations: int = 13, action_context_props=None) -> Memory:
         """Execute the GAME loop"""
         memory = memory or Memory()
+        action_context = ActionContext({
+            'memory': memory,
+            'llm': self.generate_response,
+            **(action_context_props or {})
+        })
         self.set_current_task(memory, user_input)
 
         for iteration in range(max_iterations):
@@ -80,7 +85,11 @@ class Agent:
                 print(f"[{self.name}] Unknown action, terminating")
                 break
 
-            result = self.environment.execute_action(action, invocation["args"])
+            result = self.environment.execute_action(
+                action=action,
+                args=invocation["args"],
+                action_context=action_context
+            )
             print(f"[{self.name}] Result: {str(result)[:200]}...")
 
             self.update_memory(memory, response, result)

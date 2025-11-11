@@ -1,7 +1,7 @@
 """Settings management"""
 
 DEFAULT_SETTINGS = {
-    "max_iterations": 50,
+    "max_iterations": 13,
     "default_model": "openai/gpt-4o",
     "max_tokens": 1024,
     "temperature": 0.7,

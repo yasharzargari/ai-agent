@@ -6,7 +6,7 @@ load_dotenv()
 # LLM Configuration
 DEFAULT_MODEL = os.getenv("DEFAULT_MODEL", "openai/gpt-4o")
 MAX_TOKENS = int(os.getenv("MAX_TOKENS", "1024"))
-MAX_ITERATIONS = int(os.getenv("MAX_ITERATIONS", "50"))
+MAX_ITERATIONS = int(os.getenv("MAX_ITERATIONS", "13"))
 
 # Paths
 WORKSPACE_DIR = os.getenv("WORKSPACE_DIR", "./workspace")
