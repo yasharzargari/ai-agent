@@ -84,7 +84,8 @@ class Agent:
             if not action:
                 print(f"[{self.name}] Unknown action, terminating")
                 break
-
+            
+            action_context.set_memory(memory)
             result = self.environment.execute_action(
                 action=action,
                 args=invocation["args"],

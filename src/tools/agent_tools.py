@@ -32,7 +32,8 @@ def call_agent(
             "success": False,
             "error": f"Agent '{agent_name}' not found. Available agents: {available_str}",
         }
-
+#  This passes all the memory from the parent agent to the child agent
+    # invoked_memory = action_context.get_memory() or Memory()
     invoked_memory = Memory()
 
     try:

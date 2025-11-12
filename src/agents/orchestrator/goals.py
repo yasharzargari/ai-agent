@@ -13,15 +13,17 @@ ORCHESTRATOR_GOALS = [
         priority=2,
         name="Collect File Data",
         description=(
-            "Call the `run_file_management_agent` tool with the user’s file-analysis task. "
-            "Do not proceed until you have a successful response from the FileManagementAgent."
+            "After gathering web results, call `run_file_management_agent`  "
+            "targeted at the user's request. Continue invoking it (with clarified instructions if needed) "
+            "until you receive a successful response from the FileManagementAgent."
         ),
     ),
     Goal(
         priority=3,
         name="Aggregate Results",
         description=(
-            "After both agents respond, call `synthesize_results` to combine their outputs into a single summary."
+            "Only once both agents have produced successful results, call `synthesize_results` to merge them "
+            "into a unified summary. If either result is missing or unsuccessful, loop back and resolve it first."
         ),
     ),
     Goal(

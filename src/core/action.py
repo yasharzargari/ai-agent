@@ -1,6 +1,8 @@
 from typing import Callable, Dict, Any, List
 import uuid
 
+from src.core.memory import Memory
+
 
 class Action:
     """Represents an executable action with metadata"""
@@ -58,6 +60,9 @@ class ActionContext:
 
     def get_memory(self):
         return self.properties.get("memory", None)
+
+    def set_memory(self, memory: Memory):
+        self.properties["memory"] = memory
 
     def get_agent_registry(self):
         return self.properties.get("agent_registry", None)

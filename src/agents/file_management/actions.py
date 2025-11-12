@@ -9,8 +9,8 @@ from ...core.action import ActionContext
 from ...tools.registry import register_tool
 
 
-# Get the project root directory (assuming this file is in src/multiagent/agents/file_management/)
-PROJECT_ROOT = Path(__file__).parent.parent.parent.parent.parent
+# Get the project root directory (assuming this file is in src/agents/file_management/)
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
 DATA_DIR = PROJECT_ROOT / "data"
 
 
@@ -50,8 +50,8 @@ def list_txt_files(action_context: ActionContext) -> List[str]:
     Returns:
         A sorted list of .txt filenames in the data folder
     """
-    if not DATA_DIR.exists():
-        return []
+    print('>>>>>>>>', DATA_DIR)
+
     
     return sorted([file.name for file in DATA_DIR.iterdir() 
                    if file.is_file() and file.name.endswith(".txt")])
