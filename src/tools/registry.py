@@ -1,5 +1,5 @@
 import inspect
-from typing import List, Callable, Dict, Any, get_type_hints
+from typing import List, get_type_hints
 
 from ..core.action import Action, ActionRegistry
 
