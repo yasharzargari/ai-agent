@@ -50,7 +50,6 @@ def list_txt_files(action_context: ActionContext) -> List[str]:
     Returns:
         A sorted list of .txt filenames in the data folder
     """
-    print('>>>>>>>>', DATA_DIR)
 
     
     return sorted([file.name for file in DATA_DIR.iterdir() 

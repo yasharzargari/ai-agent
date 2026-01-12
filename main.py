@@ -23,17 +23,6 @@ def main():
     agent_registry = AgentRegistry()
     agent_registry.register_agent(file_management_agent.name, file_management_agent.run)
     agent_registry.register_agent(retrieval_worker_agent.name, retrieval_worker_agent.run)
-    # agent_registry.register_agent(orchestrator_agent.name, orchestrator_agent.run)
-
-    # Define the task
-    # user_input = "Read all .txt files from the data folder and tell me who lives there."
-    # user_input = "Fetch the information from the wikipedia page provided to you and only answer using that infor tell me who are the actors in frients series."
-    # user_input = (
-    #     "Fetch information from https://en.wikipedia.org/wiki/Zonuz and extract the following: "
-    #     "city name, 2016 census population, and number of households. "
-        
-    # )
-
     user_input = "What is the population of Richmond? and what is the name of the person who lives in Richmond?"
 
     print(f"Task: {user_input}")

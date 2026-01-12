@@ -1,1 +1,0 @@
-Content consolidated into `architecture.md`.
